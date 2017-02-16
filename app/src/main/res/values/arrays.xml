@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entries_pref_cam_shutter" />
+    <string-array name="entryvalues_pref_cam_shutter" />
+    <string-array name="entries_pref_cam_resolution" >
+        <item>2160P</item>
+        <item>1080P</item>
+        <item>720P</item>
+        <item>480P</item>
+    </string-array>
+    <integer-array name="entryvalues_pref_cam_resolution" >
+        <item>2160</item>
+        <item>1080</item>
+        <item>720</item>
+        <item>480</item>
+    </integer-array>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">VideoSensors</string>
+    <string name="action_settings">Settings</string>
+    <string name="prefs_imu">IMU</string>
+    <string name="prefs_camera">Camera</string>
+    <string name="prefs_general">General</string>
+    <string name="title_pref_cam_shutter">Shutter Speed</string>
+    <string name="summary_pref_cam_shutter">Define the shutter speed to be recorded with.</string>
+    <string name="dialog_pref_cam_shutter">Shutter Speeds</string>
+    <string name="title_pref_save_dir">Save Directory Location</string>
+    <string name="summary_pref_save_dir">Location where the data will be saved</string>
+    <string name="dialog_title_pref_save_dir">Enter in which directory to save the data to.</string>
+    <string name="title_pref_cam_resolution">Resolution</string>
+    <string name="summary_pref_cam_resolution">Resolution of the images to be saved</string>
+    <string name="dialog_pref_cam_resolution">Camera Image Resolution</string>
+</resources>

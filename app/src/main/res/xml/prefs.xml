@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/prefs_general">
+
+        <EditTextPreference
+            android:key="pref_save_dir"
+            android:title="@string/title_pref_save_dir"
+            android:summary="@string/summary_pref_save_dir"
+            android:dialogTitle="@string/dialog_title_pref_save_dir" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_camera">
+        <CheckBoxPreference
+            android:key="switch_control_camera"
+            android:title="Manual Camera Control"
+            android:summary="Controle the camera setting manually"
+            android:defaultValue="false"/>
+
+        <ListPreference
+            android:key="pref_cam_resolution"
+            android:title="@string/title_pref_cam_resolution"
+            android:summary="@string/summary_pref_cam_resolution"
+            android:entries="@array/entries_pref_cam_resolution"
+            android:entryValues="@array/entryvalues_pref_cam_resolution"
+            android:dialogTitle="@string/dialog_pref_cam_resolution"
+            android:dependency="switch_control_camera"/>
+
+        <!--CheckBoxPreference
+            android:key="save_images_pref"
+            android:title="@string/title_checkbox_preference"
+            android:summary="@string/summary_checkbox_preference" /-->
+
+        <EditTextPreference
+            android:key="pref_cam_shutter_speed"
+            android:title="@string/title_pref_cam_shutter"
+            android:summary="@string/summary_pref_cam_shutter"
+            android:dialogTitle="@string/dialog_pref_cam_shutter"
+            android:dependency="switch_control_camera"/>
+        <!--android:entries="@array/entries_pref_cam_shutter"
+        android:entryValues="@array/entryvalues_pref_cam_shutter"-->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_imu">
+
+        <CheckBoxPreference
+            android:key="switch_imu_control"
+            android:title="Log all sensors"
+            android:summary="Will override each sensors' value to true"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_gravity"
+            android:title="Gravity"
+            android:summary="Gravity"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_gyro"
+            android:title="Gyroscope"
+            android:summary="Gyroscope"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_gyro_uncalib"
+            android:title="Gyroscope (uncalibrated)"
+            android:summary="Gyroscope (uncalibrated)"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_linear_acc"
+            android:title="Linear Acceleration"
+            android:summary="Linear Acceleration"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_rot_vec"
+            android:title="Rotation Vector"
+            android:summary="Rotation Vector"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_game_rot_vec"
+            android:title="Game Rotation Vector"
+            android:summary="Game Rotation Vector"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_geo_rot_vec"
+            android:title="Geomagnetic Rotation Vector"
+            android:summary="Geomagnetic Rotation Vector"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_mag_field"
+            android:title="Magnetic Field"
+            android:summary="Magnetic Field"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_mag_field_uncalib"
+            android:title="Magnetic Field (uncalibrated)"
+            android:summary="Magnetic Field (uncalibrated)"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_orientation"
+            android:title="Orientation"
+            android:summary="Orientation"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="switch_proximity"
+            android:title="Proximity"
+            android:summary="Proximity"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="switch_accleration"
+            android:title="Acceleration"
+            android:summary="Acceleration"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

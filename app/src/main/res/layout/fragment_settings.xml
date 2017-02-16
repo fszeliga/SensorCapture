@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:text="Acceleration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_accleration"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Gravity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_gravity"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Gyroscope"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_gyro"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Gyroscope (uncalibrated)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_gyro_uncalib"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Linear Acceleration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_linear_acc"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Rotation Vector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_rot_vec"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Game Rotation Vector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_game_rot_vec"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Geomagnetic Rotation Vector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_geo_rot_vec"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Magnetic Field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_mag_field"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Magnetic Field (uncalibrated)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_mag_field_uncalib"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Orientation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_orientation"
+                android:checked="true" />
+
+            <CheckBox
+                android:text="Proximity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_proximity"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Video Resolution"
+                android:id="@+id/textView_video_resolution" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_resolution"
+                android:spinnerMode="dropdown"
+                android:scrollIndicators="right" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Sensor Rate"
+                android:id="@+id/textView_sensorRate" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_sensorRate"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
