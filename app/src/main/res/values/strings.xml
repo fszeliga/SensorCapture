@@ -13,4 +13,7 @@
     <string name="title_pref_cam_resolution">Resolution</string>
     <string name="summary_pref_cam_resolution">Resolution of the images to be saved</string>
     <string name="dialog_pref_cam_resolution">Camera Image Resolution</string>
+    <string name="title_pref_sample_rate">Sensor Sample Rate</string>
+    <string name="summary_pref_sample_rate">Frequeny at which the sensors should be sampled</string>
+    <string name="dialog_pref_sample_rate">Choose desired sample frequency</string>
 </resources>

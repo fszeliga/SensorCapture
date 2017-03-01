@@ -205,7 +205,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
-            Log.d(TAG, "onCaptureCompleted: " + result.getFrameNumber() + ", " + result.get(CaptureResult.SENSOR_EXPOSURE_TIME) + " , " + result.get(CaptureResult.SENSOR_FRAME_DURATION));
+            //Log.d(TAG, "onCaptureCompleted: " + result.getFrameNumber() + ", " + result.get(CaptureResult.SENSOR_EXPOSURE_TIME) + " , " + result.get(CaptureResult.SENSOR_FRAME_DURATION));
             //40014000 is the SENSOR_FRAME_DURATION => this*30 = 1.2 seconds per 30 frames....too low
         }
     };

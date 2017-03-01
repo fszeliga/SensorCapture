@@ -2,7 +2,6 @@ package com.telepresence.example.videosensors.activities.activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.SensorManager;
@@ -22,15 +21,13 @@ import android.widget.Toast;
 import com.telepresence.example.videosensors.R;
 import com.telepresence.example.videosensors.activities.data.DataModel;
 import com.telepresence.example.videosensors.activities.data.PreferencesModel;
-import com.telepresence.example.videosensors.activities.data.SettingModel;
 import com.telepresence.example.videosensors.activities.fragments.CameraFragment;
-import com.telepresence.example.videosensors.activities.fragments.SettingFragment;
+import com.telepresence.example.videosensors.activities.fragments.PreferencesFragment;
 import com.telepresence.example.videosensors.activities.util.FileWriterUtil;
 import com.telepresence.example.videosensors.activities.util.SensorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 public class MainActivity extends Activity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -45,7 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Acti
     // fragments
     private CameraFragment cameraFragment;
     //private Camera2Fragment cameraFragment;
-    private SettingFragment settingFragment;
+    private PreferencesFragment preferencesFragment;
 
     // GUI components
     private Chronometer chrono;
@@ -89,15 +86,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Acti
         // get fragments
         cameraFragment = CameraFragment.newInstance();
         //cameraFragment = Camera2Fragment.newInstance();
-        settingFragment = new SettingFragment();
-        Log.e(TAG, "PreferencesModel()");
-        preferences = new PreferencesModel();
+        preferences = new PreferencesModel(this);
+        preferencesFragment = new PreferencesFragment();
+        preferencesFragment.setPreferencesModel(preferences);
 
         if (null == savedInstanceState) {
             getFragmentManager().beginTransaction().replace(R.id.container_camera, cameraFragment).commit();
         }
-
-        //TODO settings = new SettingModel(this);
 
         // initialize components
         chrono = (Chronometer) findViewById(R.id.chronometer);
@@ -126,7 +121,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Acti
             }
 
             case R.id.button_settings: {
-                getFragmentManager().beginTransaction().replace(R.id.container_camera, settingFragment).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container_camera, preferencesFragment).addToBackStack(null).commit();
 
                 captureButton.setVisibility(View.INVISIBLE);
                 settingsButton.setVisibility(View.INVISIBLE);
@@ -141,17 +136,21 @@ public class MainActivity extends Activity implements View.OnClickListener, Acti
     }
 
     private void captureButtonClick() {
+
+        //for(String key : preferences.getSensorsActive().keySet()){
+         //   Log.e(TAG, key + ": " + preferences.getValueForKey(key));
+        //}
+
         if (recording) {
             cameraFragment.stopRecording();
             settingsButton.setVisibility(View.VISIBLE);
             chrono.stop();
             chrono.setBase(SystemClock.elapsedRealtime());
 
-            //TODO Set<Integer> keys = settings.getSensorOn().keySet();
-            //TODO for (int key : keys) {
-                //TODO if (settings.getSensorOn().get(key))
-                 //TODO   sensorManager.unregisterListener(key);
-           //TODO }
+            //Set<Integer> keys = settings.getSensorOn().keySet();
+             for (int key : preferences.getSensorsActive()) {
+                 sensorManager.unregisterListener(key);
+            }
 
             // media recorder
             //cameraFragment.stopRecordingVideo();
@@ -165,12 +164,16 @@ public class MainActivity extends Activity implements View.OnClickListener, Acti
 
             openFiles();
 
-/* TODO
-            Set<Integer> keys = settings.getSensorOn().keySet();
-            for (int key : keys) {
-                if (settings.getSensorOn().get(key))
-                    sensorManager.registerListener(key);
-            }*/
+            //Set<Integer> keys = settings.getSensorOn().keySet();
+            for (int key : preferences.getSensorsActive()) {
+                sensorManager.registerListener(key, preferences.getSensorSampleFrequency());
+            }
+
+            Toast.makeText(this,
+                    "SensorListeners: "+preferences.getSensorsActive().size() +
+                            "\nSensor speed: " + PreferencesModel.sensorFrequencyToString(preferences.getSensorSampleFrequency()),
+                    Toast.LENGTH_LONG).show();
+
             chrono.setBase(SystemClock.elapsedRealtime());
             chrono.start();
             recording = true;
@@ -184,21 +187,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Acti
         timeStampFile = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         //TODO change to real sensors map
-        fileWriter.openMeasDirectory(timeStampFile, new HashMap<Integer,Boolean>());//settings.getSensorOn());
-    }
-
-    public SettingModel getSettings() {
-        return null;
-    }
-
-    public void setSettings(SettingModel settings) {
-       //TODO  this.settings = settings;
-
-        if(settings.isDisplayData()) {
-           // startDisplayData();
-        } else {
-            //stopDisplayData();
-        }
+        fileWriter.openMeasDirectory(timeStampFile, preferences.getSensorsActive());//settings.getSensorOn());
     }
 
     // permissions

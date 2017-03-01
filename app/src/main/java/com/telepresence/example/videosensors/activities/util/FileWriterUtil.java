@@ -33,7 +33,7 @@ public class FileWriterUtil {
 
     // file names
     // motion sensors
-    private static final String FILE_ACCELEROMETER = "acceleration.csv";
+    private static final String FILE_ACCELEROMETER = "accelerometer.csv";
     private static final String FILE_GRAVITY = "gravity.csv";
     private static final String FILE_GYROSCOPE = "gyroscope.csv";
     private static final String FILE_GYROSCOPE_UNCALIBRATED = "gyroscope_uncalibrated.csv";
@@ -46,6 +46,7 @@ public class FileWriterUtil {
     private static final String FILE_MAGNETIC_FIELD_UNCALIBRATED = "magentic_field_uncalibrated.csv";
     private static final String FILE_ORIENTATION = "orientation.csv";
     private static final String FILE_PROXIMITY = "proximity.csv";
+    private static final String FILE_POSE_6DOF = "pose_6dof.csv";
     // wireless network signal strength
     private static final String FILE_BEACON = "beacons.csv";
     private static final String FILE_WIFI = "wifi.csv";
@@ -57,14 +58,20 @@ public class FileWriterUtil {
     private static final String HEADER_GYROSCOPE = "Timestamp,Gyro X (rad/s),Gyro Y (rad/s),Gyro Z (rad/s)";
     private static final String HEADER_GYROSCOPE_UNCALIBRATED = "Timestamp,Gyro X (rad/s),Gyro Y (rad/s),Gyro Z (rad/s),Estimated Drift X (rad/s),Estimated Drift Y (rad/s),Estimated Drift Z (rad/s)";
     private static final String HEADER_LINEAR_ACCELERATION = "Timestamp,linearAcc X (m/s^2),linearAcc Y (m/s^2),linearAcc Z (m/s^2)";
-    private static final String HEADER_ROTATION_VECTOR = "Timestamp,Rot X (x * sin(theta/2)), Rot Y (y * sin(theta/2)),Rot Z (z * sin(theta/2))";
+    private static final String HEADER_ROTATION_VECTOR = "Timestamp,Rot X (x * sin(theta/2)), Rot Y (y * sin(theta/2)),Rot Z (z * sin(theta/2)),cos(θ/2)";
     // position sensors
-    private static final String HEADER_GAME_ROTATION_VECTOR = "Timestamp,Rot X (x * sin(theta/2)), Rot Y (y * sin(theta/2)),Rot Z (z * sin(theta/2))";
+    private static final String HEADER_GAME_ROTATION_VECTOR = "Timestamp,Rot X (x * sin(theta/2)), Rot Y (y * sin(theta/2)),Rot Z (z * sin(theta/2)),cos(θ/2)";
     private static final String HEADER_GEOMAGNETIC_ROTATION_VECTOR = "Timestamp,Rot X (x * sin(theta/2)), Rot Y (y * sin(theta/2)),Rot Z (z * sin(theta/2))";
     private static final String HEADER_MAGNETIC_FIELD = "Timestamp,fieldStrength X (microT),fieldStrength Y (microT),fieldStrength Z (microT)";
     private static final String HEADER_MAGNETIC_FIELD_UNCALIBRATED = "Timestamp,fieldStrength X (microT),fieldStrength Y (microT),fieldStrength Z (microT),Estimated Bias X (microT),Estimated Bias Y (microT),Estimated Bias Z (microT)";
     private static final String HEADER_ORIENTATION = "Timestamp,Orientation (deg)";
     private static final String HEADER_PROXIMITY  = "Timestamp,Proximity (cm)";
+    private static final String HEADER_POSE_6DOF = "Timestamp, x*sin(θ/2),y*sin(θ/2),z*sin(θ/2),cos(θ/2)" +
+            "Translation along x axis from an arbitrary origin,Translation along y axis from an arbitrary origin,Translation along z axis from an arbitrary origin," +
+            "Delta quaternion rotation x*sin(θ/2),Delta quaternion rotation y*sin(θ/2),Delta quaternion rotation z*sin(θ/2),Delta quaternion rotation cos(θ/2)" +
+            "Delta translation along x axis,Delta translation along y axis,Delta translation along z axis," +
+            "Sequence number";
+
     // wireless network signal strength
     private static final String HEADER_BEACON = "Timestamp";
     private static final String HEADER_WIFI = "Timestamp";
@@ -91,7 +98,7 @@ public class FileWriterUtil {
         //openVideoDirectory();
     }
 
-    public void openMeasDirectory(String timestamp, HashMap<Integer,Boolean> sensorOn) {
+    public void openMeasDirectory(String timestamp, Set<Integer> activeSensors) {
         File measDirectory = new File(rootDirectory.getPath() + "/" + timestamp);
         sensorDirectory = new File(measDirectory.getPath() + DIRECTORY_SENSOR);
         imageDirectory = new File(measDirectory.getPath() + DIRECTORY_IMAGE);
@@ -102,11 +109,16 @@ public class FileWriterUtil {
         imageDirectory.mkdirs();
         videoDirectory.mkdirs();
 
+        for (int key : activeSensors) {
+                buildWriter(key);
+        }
+
+        /*
         Set<Integer> keys = sensorOn.keySet();
         for (int key : keys) {
             if (sensorOn.get(key))
                 buildWriter(key);
-        }
+        }*/
 
         try {
             videoTimestampWriter = new PrintWriter(videoDirectory.getAbsoluteFile() + "/frame_timestamps.csv");
@@ -189,6 +201,12 @@ public class FileWriterUtil {
                 PrintWriter writer = getWriter(sensorDirectory + "/" + FILE_PROXIMITY);
                 writer.println(HEADER_PROXIMITY);
                 printWriters.put(Sensor.TYPE_PROXIMITY, writer);
+                break;
+            }
+            case Sensor.TYPE_POSE_6DOF: {
+                PrintWriter writer = getWriter(sensorDirectory + "/" + FILE_POSE_6DOF);
+                writer.println(HEADER_POSE_6DOF);
+                printWriters.put(Sensor.TYPE_POSE_6DOF, writer);
                 break;
             }
         }

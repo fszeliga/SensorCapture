@@ -4,6 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 
 import com.telepresence.example.videosensors.activities.activities.MainActivity;
 import com.telepresence.example.videosensors.activities.data.SettingModel;
@@ -95,7 +96,7 @@ public class SensorUtil {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             try {
-                fileWriter.writeSensorFile(Sensor.TYPE_ROTATION_VECTOR, getDataString(sensorEvent, 3));
+                fileWriter.writeSensorFile(Sensor.TYPE_ROTATION_VECTOR, getDataString(sensorEvent, 4));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -110,7 +111,7 @@ public class SensorUtil {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             try {
-                fileWriter.writeSensorFile(Sensor.TYPE_GAME_ROTATION_VECTOR, getDataString(sensorEvent, 3));
+                fileWriter.writeSensorFile(Sensor.TYPE_GAME_ROTATION_VECTOR, getDataString(sensorEvent, 4));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -197,6 +198,22 @@ public class SensorUtil {
         }
     };
 
+    private SensorEventListener pose6DOFListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            try {
+                fileWriter.writeSensorFile(Sensor.TYPE_POSE_6DOF, getDataString(sensorEvent, 15));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+
+        }
+    };
+
     private HashMap<Integer,SensorEventListener> sensorListeners = new HashMap<>();
 
     // file writer
@@ -221,11 +238,14 @@ public class SensorUtil {
         sensorListeners.put(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED, magUncalibVecListener);
         sensorListeners.put(Sensor.TYPE_ORIENTATION, orientationListener);
         sensorListeners.put(Sensor.TYPE_PROXIMITY, proxListener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            sensorListeners.put(Sensor.TYPE_POSE_6DOF, pose6DOFListener);
+        }
     }
 
-    public void registerListener(int type) {
+    public void registerListener(int type, int sensorSampleFrequency) {
         Sensor sensor = manager.getDefaultSensor(type);
-        manager.registerListener(sensorListeners.get(type), sensor, SensorManager.SENSOR_DELAY_FASTEST);
+        manager.registerListener(sensorListeners.get(type), sensor, sensorSampleFrequency);
     }
 
     public void unregisterListener(int type) {
@@ -233,8 +253,8 @@ public class SensorUtil {
     }
 
     private String getDataString(SensorEvent event, int cnt) {
-        long timestamp = System.currentTimeMillis();
-        String data = timestamp + "";
+        //long timestamp = System.currentTimeMillis();
+        String data = event.timestamp + "";
         for (int i = 0; i < cnt; i++)
             data = data + "," + event.values[i];
         return data;

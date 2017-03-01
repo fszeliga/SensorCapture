@@ -16,7 +16,7 @@
         <CheckBoxPreference
             android:key="switch_control_camera"
             android:title="Manual Camera Control"
-            android:summary="Controle the camera setting manually"
+            android:summary="Control the camera setting manually"
             android:defaultValue="false"/>
 
         <ListPreference
@@ -52,76 +52,97 @@
             android:title="Log all sensors"
             android:summary="Will override each sensors' value to true"
             android:defaultValue="true"/>
+        <ListPreference
+            android:key="pref_sample_rate"
+            android:title="@string/title_pref_sample_rate"
+            android:summary="@string/summary_pref_sample_rate"
+            android:entries="@array/entries_pref_sample_rate"
+            android:entryValues="@array/entryvalues_pref_sample_rate"
+            android:dialogTitle="@string/dialog_pref_sample_rate"/>
 
-        <CheckBoxPreference
-            android:key="switch_gravity"
-            android:title="Gravity"
-            android:summary="Gravity"
-            android:defaultValue="true"/>
+        <PreferenceScreen
+            android:title="Sensor List"
+            android:summary="Select which sensors to log"
+            android:key="screen_sensor_list">
 
-        <CheckBoxPreference
-            android:key="switch_gyro"
-            android:title="Gyroscope"
-            android:summary="Gyroscope"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_gravity"
+                android:title="Gravity"
+                android:summary="Gravity"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_gyro_uncalib"
-            android:title="Gyroscope (uncalibrated)"
-            android:summary="Gyroscope (uncalibrated)"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_gyro"
+                android:title="Gyroscope"
+                android:summary="Gyroscope"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_linear_acc"
-            android:title="Linear Acceleration"
-            android:summary="Linear Acceleration"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_gyro_uncalib"
+                android:title="Gyroscope (uncalibrated)"
+                android:summary="Gyroscope (uncalibrated)"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_rot_vec"
-            android:title="Rotation Vector"
-            android:summary="Rotation Vector"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_acceleration"
+                android:title="Acceleration"
+                android:summary="Acceleration"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_game_rot_vec"
-            android:title="Game Rotation Vector"
-            android:summary="Game Rotation Vector"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_linear_acc"
+                android:title="Linear Acceleration"
+                android:summary="Linear Acceleration"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_geo_rot_vec"
-            android:title="Geomagnetic Rotation Vector"
-            android:summary="Geomagnetic Rotation Vector"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_rot_vec"
+                android:title="Rotation Vector"
+                android:summary="Rotation Vector"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_mag_field"
-            android:title="Magnetic Field"
-            android:summary="Magnetic Field"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_game_rot_vec"
+                android:title="Game Rotation Vector"
+                android:summary="Game Rotation Vector"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_mag_field_uncalib"
-            android:title="Magnetic Field (uncalibrated)"
-            android:summary="Magnetic Field (uncalibrated)"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_geo_rot_vec"
+                android:title="Geomagnetic Rotation Vector"
+                android:summary="Geomagnetic Rotation Vector"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_orientation"
-            android:title="Orientation"
-            android:summary="Orientation"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_mag_field"
+                android:title="Magnetic Field"
+                android:summary="Magnetic Field"
+                android:defaultValue="true"/>
 
-        <CheckBoxPreference
-            android:key="switch_proximity"
-            android:title="Proximity"
-            android:summary="Proximity"
-            android:defaultValue="true"/>
-        <CheckBoxPreference
-            android:key="switch_accleration"
-            android:title="Acceleration"
-            android:summary="Acceleration"
-            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="switch_pose_6dof"
+                android:title="6DOF Pose"
+                android:summary="6DOF Pose"
+                android:defaultValue="true"/>
+
+            <CheckBoxPreference
+                android:key="switch_mag_field_uncalib"
+                android:title="Magnetic Field (uncalibrated)"
+                android:summary="Magnetic Field (uncalibrated)"
+                android:defaultValue="true"/>
+
+            <CheckBoxPreference
+                android:key="switch_orientation"
+                android:title="Orientation"
+                android:summary="Orientation"
+                android:defaultValue="true"/>
+
+            <CheckBoxPreference
+                android:key="switch_proximity"
+                android:title="Proximity"
+                android:summary="Proximity"
+                android:defaultValue="true"/>
+
+        </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>

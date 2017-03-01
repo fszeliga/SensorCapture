@@ -8,10 +8,22 @@
         <item>720P</item>
         <item>480P</item>
     </string-array>
-    <integer-array name="entryvalues_pref_cam_resolution" >
+    <string-array name="entryvalues_pref_cam_resolution" >
         <item>2160</item>
         <item>1080</item>
         <item>720</item>
         <item>480</item>
-    </integer-array>
+    </string-array>
+    <string-array name="entries_pref_sample_rate">
+        <item>Fastest (Default)</item>
+        <item>Game</item>
+        <item>UI</item>
+        <item>Normal</item>
+    </string-array>
+    <string-array name="entryvalues_pref_sample_rate" >
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>
